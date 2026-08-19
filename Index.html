@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Para Você ❤️</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            width: 100%;
+            height: 100vh;
+            overflow: hidden;
+            font-family: Arial, sans-serif;
+            background: #350006;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .fundo {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            background:
+                radial-gradient(circle at 50% 50%, #6d0010, #350006 70%);
+            overflow: hidden;
+            z-index: -2;
+        }
+
+        .coracao {
+            position: absolute;
+            color: #ff1764;
+            font-size: 25px;
+            opacity: 0.8;
+            animation: subir linear infinite;
+            text-shadow: 0 0 10px #ff1764;
+        }
+
+        @keyframes subir {
+            0% {
+                transform: translateY(110vh) scale(0.5) rotate(0deg);
+                opacity: 0;
+            }
+
+            20% {
+                opacity: 0.9;
+            }
+
+            100% {
+                transform: translateY(-120vh) scale(1.2) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        .brilho {
+            position: absolute;
+            width: 5px;
+            height: 5px;
+            background: white;
+            border-radius: 50%;
+            box-shadow: 0 0 8px white;
+            animation: piscar 2s infinite alternate;
+        }
+
+        @keyframes piscar {
+            from {
+                opacity: 0.2;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+
+        .container {
+            width: 90%;
+            max-width: 500px;
+            padding: 35px 25px;
+            text-align: center;
+
+            background: rgba(0, 0, 0, 0.55);
+
+            border: 1px solid rgba(255, 255, 255, 0.25);
+            border-radius: 25px;
+
+            box-shadow:
+                0 0 25px rgba(255, 0, 70, 0.5),
+                inset 0 0 25px rgba(255, 0, 70, 0.1);
+        }
+
+        h1 {
+            color: #ff4f83;
+            font-size: 38px;
+            margin-bottom: 20px;
+            text-shadow: 0 0 15px #ff1764;
+        }
+
+        .coracao-titulo {
+            color: #ff1764;
+        }
+
+        p {
+            color: white;
+            font-size: 20px;
+            line-height: 1.5;
+            margin-bottom: 30px;
+        }
+
+        .botoes {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 20px;
+        }
+
+        button {
+            border: none;
+            padding: 14px 28px;
+            border-radius: 12px;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        #btnSim {
+            background: #ff1764;
+            color: white;
+        }
+
+        #btnSim:hover {
+            transform: scale(1.05);
+        }
+
+        #btnNo {
+            background: white;
+            color: #222;
+        }
+
+        .mensagem {
+            display: none;
+            margin-top: 25px;
+            color: #ff6f9e;
+            font-size: 24px;
+            font-weight: bold;
+            animation: aparecer 0.5s;
+        }
+
+        @keyframes aparecer {
+            from {
+                transform: scale(0);
+                opacity: 0;
+            }
+
+            to {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="fundo" id="fundo"></div>
+
+    <div class="container">
+
+        <h1>
+            Para Você <span class="coracao-titulo">❤️</span>
+        </h1>
+
+        <p>
+            Eu tenho uma pergunta para você... 🥰
+            <br><br>
+            Vamos nos conhecer melhor?
+        </p>
+
+        <div class="botoes">
+
+            <button id="btnSim" onclick="aceitou()">
+                SIM ❤️
+            </button>
+
+            <button id="btnNo"
+                    onclick="fugir()"
+                    onmouseover="fugir()">
+                NÃO 😭
+            </button>
+
+        </div>
+
+        <div class="mensagem" id="mensagem">
+            Eu sabia! ❤️🥰
+        </div>
+
+    </div>
+
+    <script>
+
+        const fundo = document.getElementById("fundo");
+
+        // Cria os corações
+        for (let i = 0; i < 35; i++) {
+
+            const coracao = document.createElement("div");
+
+            coracao.className = "coracao";
+
+            coracao.innerHTML = "♥";
+
+            coracao.style.left =
+                Math.random() * 100 + "%";
+
+            coracao.style.fontSize =
+                (15 + Math.random() * 35) + "px";
+
+            coracao.style.animationDuration =
+                (5 + Math.random() * 8) + "s";
+
+            coracao.style.animationDelay =
+                Math.random() * 8 + "s";
+
+            fundo.appendChild(coracao);
+        }
+
+        // Cria os brilhos
+        for (let i = 0; i < 30; i++) {
+
+            const brilho = document.createElement("div");
+
+            brilho.className = "brilho";
+
+            brilho.style.left =
+                Math.random() * 100 + "%";
+
+            brilho.style.top =
+                Math.random() * 100 + "%";
+
+            brilho.style.animationDelay =
+                Math.random() * 2 + "s";
+
+            fundo.appendChild(brilho);
+        }
+
+        // Faz o botão NÃO fugir
+        function fugir() {
+
+            const btnNo =
+                document.getElementById("btnNo");
+
+            btnNo.style.position = "fixed";
+
+            const windowWidth =
+                window.innerWidth;
+
+            const windowHeight =
+                window.innerHeight;
+
+            const buttonWidth =
+                btnNo.offsetWidth;
+
+            const buttonHeight =
+                btnNo.offsetHeight;
+
+            const randomX =
+                Math.floor(
+                    Math.random() *
+                    (windowWidth - buttonWidth)
+                );
+
+            const randomY =
+                Math.floor(
+                    Math.random() *
+                    (windowHeight - buttonHeight)
+                );
+
+            btnNo.style.left =
+                randomX + "px";
+
+            btnNo.style.top =
+                randomY + "px";
+        }
+
+        // Quando clicar no SIM
+        function aceitou() {
+
+            const mensagem =
+                document.getElementById("mensagem");
+
+            const btnNo =
+                document.getElementById("btnNo");
+
+            mensagem.style.display = "block";
+
+            btnNo.style.display = "none";
+
+            document.getElementById("btnSim").innerHTML =
+                "Eu tô gostando de vc ❤️";
+        }
+
+    </script>
+
+</body>
+
+</html>
